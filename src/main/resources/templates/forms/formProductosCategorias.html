@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="~{/fragments/content-header :: header}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<div th:replace="~{/fragments/navbar :: navbar}"></div>
+		<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div th:replace="~{/fragments/content-header2 :: content-header2}"></div>
+
+					<div class="container-fluid">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title" th:text="${subtitulo}"></h3>
+							</div>
+							<div class="card-body">
+
+								<div class="form-group">
+									<label for="nombreProducto">Nombre Producto</label>
+									<input th:field="*{producto.nombre}" disabled class="form-control">
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 col-form-label">Descripcion</label>
+									<textarea th:field="*{producto.descripcion}" disabled class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 col-form-label">Valor</label>
+									<input th:field="*{producto.valor}" disabled class="form-control">
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 col-form-label">Stock</label>
+									<input th:field="*{producto.stock}" disabled class="form-control">
+								</div>
+
+								<form th:action="@{/forms/guardarProductosCategorias}" th:object="${productosCategorias}" method="post">
+									
+									<input th:value="${producto.id}" id="producto_id" name="producto_id" hidden class="form-control">
+
+									<div class="row">
+										<div class="form-group col">
+											<label for="nombreCoctel">Categoria</label>
+											<select class="form-control" id="categoria_id" name="categoria_id">
+												<option th:each="categoria : ${categorias}" th:value="${categoria.id}"
+													th:text="${categoria.nombre}">
+												</option>
+											</select>
+										</div>
+										<div class="form-group col">
+											<label for="nombreCoctel">Stock</label>
+											<input id="stock" value="1" name="stock" type="text" class="form-control">
+										</div>
+										<div class="form-group col">
+											<label for="nombreCoctel">Estado</label>
+											<select class="form-control"  id="estado_id" name="estado_id">
+												<option th:each="estado : ${estado}" th:value="${estado.id}"
+													th:text="${estado.nombre}">
+												</option>
+											</select>
+										</div>
+									</div>
+
+									<button type="submit" class="btn btn-block btn-default btn-lg">Guardar</button>
+								</form>
+
+							</div>
+						</div>
+						
+						<div class="card" th:if="${listproductosCategorias.size()>0}">
+							<div class="card-header">
+								<h3 class="card-title">Categorias registradas</h3>
+							</div>
+							<div class="card-body">
+
+								<table id="tabla" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>Categoria</th>
+											<th>Stock</th>
+											<th>Estado</th>
+											<th>Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="ProdCat: ${listproductosCategorias}">
+											<td th:text="${ProdCat.categoria.nombre}"></td>
+											<td th:text="${ProdCat.stock}"></td>
+											<td th:text="${ProdCat.estado.nombre}"></td>
+											<td>
+												<div class="row">
+													<div class="col col-sm-4">
+														<a class="btn btn-block btn-secondary btn-sm"
+															th:href="@{'/forms/productos/ver/' + ${ProdCat.categoria.id}}">
+															<i class="fas fa-eye"></i>
+														</a>
+													</div>
+													<div class="col col-sm-4">
+														<a class="btn btn-block btn-info btn-sm"
+															th:href="@{'/forms/productos/editar/' + ${ProdCat.categoria.id}}">
+															<i class="fas fa-pen"></i>
+														</a>
+													</div>
+													<div class="col col-sm-4">
+														<a class="btn btn-block btn-danger btn-sm"
+															th:href="@{'/forms/productoscategorias/eliminar/'+ ${ProdCat.producto.id}+'/' + ${ProdCat.id}}"
+															onclick="return confirm('¿Estas seguro que desea eliminar el producto?');">
+															<i class="fas fa-trash"></i>
+														</a>
+													</div>
+												</div>
+											</td>
+										</tr>
+									<tfoot>
+										<tr>
+											<th>Categoria</th>
+											<th>Stock</th>
+											<th>Estado</th>
+											<th>Acciones</th>
+										</tr>
+									</tfoot>
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+<div th:replace="~{/fragments/plugins :: js}"></div>
+
+</html>

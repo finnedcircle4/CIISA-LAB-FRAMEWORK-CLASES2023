@@ -1,0 +1,166 @@
+<!-- ***********************************************************************************************
+
+											SIDEBAR 
+
+     ***********************************************************************************************--> 
+<!-- Main Sidebar Container -->
+<aside th:fragment="sidebar" class="main-sidebar sidebar-dark-primary elevation-4">
+	<!-- Brand Logo -->
+	<a th:href="@{'/'}" class="brand-link">
+		<img th:src="@{/images/IZBB.png}" alt="Logo"
+			class="brand-image img-circle elevation-3" style="opacity: .8">
+		<span th:text="${nombreApp}" class="brand-text font-weight-light"></span>
+	</a>
+
+	<!-- Sidebar -->
+	<div class="sidebar">
+		<!-- Sidebar user panel (optional) -->
+		<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+			<div class="image">
+				<img th:src="@{/images/naxofancy.jpg}" class="img-circle elevation-2" alt="User Image">
+			</div>
+			<!-- GENERAR USER MEDIANTE Model Atribute 
+			<div class="info">
+				<a href="#" th:text="${usuario.nombre +' '+ usuario.apellido }" class="d-block"></a>
+			</div>
+			-->
+			<!-- NOMBRE USER MEDIANTE SPRING SECURITY -->
+			<div sec:authorize="isAuthenticated()" class="info">
+				<p sec:authentication="name" class="d-block text-white"></p>
+			</div>
+			
+			
+		</div>
+
+		<!-- SidebarSearch Form -->
+		<div class="form-inline">
+			<div class="input-group" data-widget="sidebar-search">
+				<input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+				<div class="input-group-append">
+					<button class="btn btn-sidebar">
+						<i class="fas fa-search fa-fw"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- Sidebar Menu -->
+		<nav class="mt-2">
+			<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+				<!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+				<li th:class="'nav-item '+${titulo == 'Dashboard' ? 'menu-open' : ''}">
+					<a href="#" th:class="'nav-link '+${titulo == 'Dashboard' ? 'active' : ''}">
+						<i class="nav-icon fas fa-tachometer-alt"></i>
+						<p>
+							Dashboard
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a th:href="@{'/'}" th:class="'nav-link '+${subtitulo == 'Dashboard Principal' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Dashboard Principal</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li th:class="'nav-item '+${titulo == 'Productos' ? 'menu-open' : ''}">
+					<a href="#" th:class="'nav-link '+${titulo == 'Productos' ? 'active' : ''}">
+						<i class="nav-icon fas fa-dollar-sign"></i>
+						<p>
+							Productos
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a th:href="@{'/forms/formProducto'}" th:class="'nav-link '+${subtitulo == 'Agregar producto' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Agregar Producto</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{'/forms/listarProducto'}" th:class="'nav-link '+${subtitulo == 'Listar productos' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Listar productos</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li th:class="'nav-item '+${titulo == 'Categorias' ? 'menu-open' : ''}">
+					<a href="#" th:class="'nav-link '+${titulo == 'Categorias' ? 'active' : ''}">
+						<i class="nav-icon fas fa-lemon"></i>
+						<p>
+							Categorias
+							<i class="fas fa-angle-left right"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a th:href="@{'/forms/formCategoria'}" th:class="'nav-link '+${subtitulo == 'Agregar Categorias' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Agregar Categorias</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{'/forms/listarCategoria'}" th:class="'nav-link '+${subtitulo == 'Listar Categorias' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Listar Categorias</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li th:class="'nav-item '+${titulo == 'Estados' ? 'menu-open' : ''}">
+					<a href="#" th:class="'nav-link '+${titulo == 'Estados' ? 'active' : ''}">
+						<i class="nav-icon fas fa-ruler"></i>
+						<p>
+							Estados
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a th:href="@{'/forms/formEstado'}" th:class="'nav-link '+${subtitulo == 'Agregar estados' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Agregar Estados</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{'/forms/listarEstado'}" th:class="'nav-link '+${subtitulo == 'Listar estados' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Listar Estados</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li th:class="'nav-item '+${titulo == 'Usuarios' ? 'menu-open' : ''}">
+					<a href="#" th:class="'nav-link '+${titulo == 'Usuarios' ? 'active' : ''}">
+						<i class="nav-icon fas fa-user"></i>
+						<p>
+							Usuarios
+							<i class="right fas fa-angle-left"></i>
+						</p>
+					</a>
+					<ul class="nav nav-treeview">
+						<li class="nav-item">
+							<a th:href="@{'/forms/formUsers'}" th:class="'nav-link '+${subtitulo == 'Agregar user' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Agregar usuario</p>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{'/forms/listarUsers'}" th:class="'nav-link '+${subtitulo == 'Listar user' ? 'active' : ''}">
+								<i class="far fa-circle nav-icon"></i>
+								<p>Listar usuarios</p>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+		<!-- /.sidebar-menu -->
+	</div>
+	<!-- /.sidebar -->
+</aside>

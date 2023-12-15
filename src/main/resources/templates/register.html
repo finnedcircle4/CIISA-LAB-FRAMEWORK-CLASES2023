@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="~{/fragments/content-header :: header}"></head>
+
+
+<body class="hold-transition login-page">
+	<div class="login-box">
+		<div class="card card-outline card-primary">
+			<div class="card-header text-center">
+				<img th:src="@{images/IZBB.png}" class="img-fluid" alt="...">
+				<p th:text="${nombreApp}" class="h1"></p>
+			</div>
+			<div class="card-body">
+				<p class="login-box-msg" th:text="${titulo}"></p>
+				<form th:action="@{/forms/registrarUsuario}" method="post">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Nombre" name="nombre">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-user"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Apellido" name="apellido">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-user"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="email" class="form-control" placeholder="Correo" name="email">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-envelope"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="password" class="form-control" placeholder="Contraseña" name="password">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-lock"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<button type="submit" class="btn btn-primary btn-block">Registarme</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="~{/fragments/plugins :: js}"></div>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="~{/fragments/content-header :: header}"></head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<div th:replace="~{/fragments/navbar :: navbar}"></div>
+		<div th:replace="~{/fragments/sidebar :: sidebar}"></div>
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Main content -->
+			<section class="content">
+				<div class="container-fluid">
+					<div th:replace="~{/fragments/content-header2 :: content-header2}"></div>
+
+					<div class="container-fluid">
+						<div class="card">
+							<div class="card-header">
+								<h3 class="card-title" th:text="${subtitulo}"></h3>
+							</div>
+							<div class="card-body">
+
+								<form th:if="${opcion.equals('editar') or opcion.equals('agregar')}"
+									th:action="@{/forms/guardarProducto}" th:object="${producto}" method="post">
+									<input th:field="*{id}" type="hidden" class="form-control">
+									<input th:field="*{createAt}" type="hidden" class="form-control">
+									<div class="form-group">
+										<label for="nombreProducto">Nombre producto</label>
+										<input th:field="*{nombre}" type="text" class="form-control" th:errorclass="'form-control is-invalid'">
+										<small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}"
+											th:errors="*{nombre}"></small>
+									</div>
+									<div class="form-group">
+										<label for="nombreProducto">Valor</label>
+										<input th:field="*{valor}" type="text" class="form-control"
+											th:errorclass="'form-control is-invalid'">
+										<small class="form-text text-danger" th:if="${#fields.hasErrors('valor')}"
+											th:errors="*{valor}"></small>
+									</div>
+									<div class="form-group">
+										<label for="nombreProducto">Stock</label>
+										<input th:field="*{stock}" type="number" class="form-control"
+											th:errorclass="'form-control is-invalid'">
+										<small class="form-text text-danger" th:if="${#fields.hasErrors('stock')}"
+											th:errors="*{stock}"></small>
+									</div>
+									<div class="form-group">
+										<label>Descripcion</label>
+										<textarea th:field="*{descripcion}" type="text" rows="3" class="form-control"
+											style="height: 146px;" th:errorclass="'form-control is-invalid'"></textarea>
+										<small class="form-text text-danger" th:if="${#fields.hasErrors('descripcion')}"
+											th:errors="*{descripcion}"></small>
+									</div>
+
+									<button type="submit" class="btn btn-block btn-default btn-lg">Guardar</button>
+								</form>
+
+								<div th:if="${opcion.equals('ver')}">
+
+									<div class="form-group">
+										<label for="nombreProducto">Nombre producto</label>
+										<input th:field="*{producto.nombre}" disabled class="form-control">
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 col-form-label">Descripcion</label>
+										<input th:field="*{producto.descripcion}" disabled class="form-control">
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 col-form-label">Valor</label>
+										<input th:field="*{producto.valor}" disabled class="form-control">
+									</div>
+									<div class="form-group">
+										<label class="col-sm-2 col-form-label">Stock</label>
+										<input th:field="*{producto.stock}" disabled class="form-control">
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</body>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+<div th:replace="~{/fragments/plugins :: js}"></div>
+</html>

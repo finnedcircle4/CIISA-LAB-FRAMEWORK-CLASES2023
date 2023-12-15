@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:replace="~{/fragments/content-header :: header}"></head>
+
+
+<body class="hold-transition login-page">
+	<div class="row mb-2">
+			<div class="col-12 alert alert-success" th:if="${success != null}" role="alert"th:text="${success}" style="color: #155724;background-color: #d4edda;border-color: #c3e6cb;"></div>
+			<div class="col-12 alert alert-danger" th:if="${error != null}" th:text="${error}" style="color: #721c24;background-color: #f8d7da;border-color: #f5c6cb;"></div>
+			<div class="col-12 alert alert-warning" th:if="${warning != null}" th:text="${warning}" style="color: #856404;background-color: #fff3cd;border-color: #ffeeba;"></div>
+			<div class="col-12 alert alert-info" th:if="${info != null}" th:text="${info}" style="color: #0c5460;background-color: #d1ecf1;border-color: #bee5eb;"></div>
+	</div>
+	<div class="login-box">
+		<!-- /.login-logo -->
+		<div class="card card-outline card-primary">
+			<div class="card-header text-center">
+				<img th:src="@{images/IZBB.png}" class="img-fluid" alt="...">
+				<a href="../../index.html" th:text="${nombreApp}" class="h1"></a>
+			</div>
+			<div class="card-body">
+				<p class="login-box-msg" th:text="${titulo}"></p>
+
+				<form th:action="@{/login}" method="post">
+					<div class="input-group mb-3">
+						<input type="email" name="username" id="usermane" class="form-control" placeholder="Correo Electrónico" autofocus required>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-envelope"></span>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="password" class="form-control" name="password" id="password" placeholder="Contraseña"required>
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-lock"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-8">
+							<div class="icheck-primary">
+								<input type="checkbox" id="remember">
+								<label for="remember">
+									Recuérdame
+								</label>
+							</div>
+						</div>
+						<!-- /.col -->
+						<div class="col-4">
+							<button type="submit" class="btn btn-primary btn-block">Conectar</button>
+						</div>
+						<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+						<!-- /.col -->
+					</div>
+				</form>
+				<p class="mb-1">
+					<a th:href="forgot-password.html">¿Olvidaste tu contraseña?</a>
+				</p>
+				<p class="mb-0">
+					<a th:href="@{/register}" class="text-center">Registrarse</a>
+				</p>
+			</div>
+			<!-- /.card-body -->
+		</div>
+		<!-- /.card -->
+	</div>
+	<!-- /.login-box -->
+
+	<div th:replace="~{/fragments/plugins :: js}"> </div>
+</body>
+
+</html>

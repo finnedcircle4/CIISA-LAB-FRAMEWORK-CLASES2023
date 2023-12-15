@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="~{/fragments/content-header :: header}">
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+	<div class="wrapper">
+		<div th:replace="~{/fragments/base :: preloader}"> </div>
+		<div th:replace="~{/fragments/navbar :: navbar}"> </div>
+		<div th:replace="~{/fragments/sidebar :: sidebar}"> </div>
+		<div th:replace="~{/fragments/statBoxes :: stat-box}"> </div>
+
+
+		<!-- Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Main content -->
+			<div class="container-fluid">
+				<div th:replace="~{/fragments/content-header2 :: content-header2}"> </div>
+
+				<div class="row mb-2">
+					<div class="col-sm-6">
+						<h1 class="m-0">Hola! Bienvenido a tu Gestor de Inventario <br>
+							by: IAZA©</h1>
+					</div><!-- /.col -->
+					<div class="col-sm-6">
+						<ol class="breadcrumb float-sm-right">
+							<li class="breadcrumb-item"><a href="#" th:text="${titulo}"></a></li>
+							<li class="breadcrumb-item active" th:text="${subtitulo}"></li>
+						</ol>
+					</div>
+				</div>
+				<!-- Div card 1 -->
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Precios productos</h3>
+					</div>
+					<div class="card-body">
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+				
+				<!-- Div card 2 -->
+				<div class="card">
+					<div class="card-header">
+						<h3 class="card-title">Categorias</h3>
+					</div>
+					<div class="card-body">
+						<canvas id="productos"></canvas>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div th:replace="~{/fragments/plugins :: js}"> </div>
+	</div>
+	
+</body>
+<div th:replace="~{/fragments/plugins :: js}"> </div>
+<div th:replace="~{/fragments/footer :: footer}"></div>
+
+<script th:inline="javascript">
+	var productos = /*[[${productos}]]*/ 'default';
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: productos.map(producto => producto.nombre),
+			datasets: [{
+				label: 'Precio productos',
+				data: productos.map(producto => producto.valor),
+				backgroundColor: 'rgba(75, 192, 192, 0.2)',
+				borderColor: 'rgba(75, 192, 192, 1)',
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
+
+
+	//-------------
+	//- DONUT CHART -
+	//-------------
+	var estados = /*[[${estados}]]*/ 'default';
+	// Inicializamos dos arreglos vacíos: uno para las etiquetas (labels) y otro para los datos (data).
+	var labels = [];
+	var data = [];
+
+	// Inicializamos un objeto vacío para almacenar los conteos de cada categoría.
+	var counts = {};
+
+	// Recorremos el arreglo de ingredientes.
+	for (var i = 0; i < estados.length; i++) {
+		// Obtenemos la categoría del ingrediente actual.
+		var nombre = estados[i].nombre;
+
+		// Si la categoría ya existe en el objeto counts, incrementamos su conteo en 1.
+		// Si no existe, la añadimos al objeto counts con un conteo inicial de 1.
+		counts[nombre] = counts[nombre] ? counts[nombre] + 1 : 1;
+	}
+
+	// Recorremos el objeto counts.
+	for (var nombre in counts) {
+		// Añadimos la categoría al arreglo de etiquetas.
+		labels.push(nombre);
+
+		// Añadimos el conteo de la categoría al arreglo de datos.
+		data.push(counts[nombre]);
+	}
+	var donutChartCanvas = $('#estados').get(0).getContext('2d')
+	var donutData = {
+		labels: labels,
+		datasets: [
+			{
+				data: data,
+				backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+			}
+		]
+	}
+	var donutOptions = {
+		maintainAspectRatio: false,
+		responsive: true,
+	}
+	//Create pie or douhnut chart
+	// You can switch between pie and douhnut using the method below.
+	new Chart(donutChartCanvas, {
+		type: 'doughnut',
+		data: donutData,
+		options: donutOptions
+	})
+</script>
+
+</html>

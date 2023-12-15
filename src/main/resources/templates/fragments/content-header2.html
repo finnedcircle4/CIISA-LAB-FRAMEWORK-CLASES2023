@@ -1,0 +1,24 @@
+<!-- ***********************************************************************************************
+
+											CONTENT HEADER 2
+
+     ***********************************************************************************************-->
+<!-- Contenido Principal Sidebar -->
+<div th:fragment="content-header2" class="content-header">
+	<div class="container-fluid">
+		<div class="row mb-2">
+			<div class="col-sm-6">
+				
+			</div><!-- /.col -->
+			<div class="col-sm-6">
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+		<div class="row mb-2">
+			<div class="col-12 alert alert-success" th:if="${success != null}" role="alert"th:text="${success}" style="color: #155724;background-color: #d4edda;border-color: #c3e6cb;"></div>
+			<div class="col-12 alert alert-danger" th:if="${error != null}" th:text="${error}" style="color: #721c24;background-color: #f8d7da;border-color: #f5c6cb;"></div>
+			<div class="col-12 alert alert-warning" th:if="${warning != null}" th:text="${warning}" style="color: #856404;background-color: #fff3cd;border-color: #ffeeba;"></div>
+			<div class="col-12 alert alert-info" th:if="${info != null}" th:text="${info}" style="color: #0c5460;background-color: #d1ecf1;border-color: #bee5eb;"></div>
+		</div>
+	</div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
